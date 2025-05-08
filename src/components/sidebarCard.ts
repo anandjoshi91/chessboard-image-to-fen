@@ -4,6 +4,7 @@ import { ChessBoardCanvas } from "./previewCanvas";
 import { detectionCanvasList } from "../renderBoxes";
 import { Sidebar } from "./sidebar";
 import { normalizeFenString } from "../utils";
+import { createOQTLink, createCopyButtons } from "./linkHelper";
 
 const outlineSVG = document.querySelector(".outline-svg_svg")!;
 
@@ -41,6 +42,9 @@ export function createSidebarCard(
 
     fenW.value = f1;
     fenB.value = f2;
+
+    // Update the OQT links when prediction is made
+    updateOQTLinks(f1, f2);
 
     const helperCanvas = new ChessBoardCanvas(
       detectionCanvas.width,
@@ -113,6 +117,45 @@ export function createSidebarCard(
   fenB.disabled = true;
   fenContainer.append(fenW, copyFENBtnW, fenB, copyFENBtnB);
 
+  // * ============
+  // * OQT Links
+  
+  const linkContainer = document.createElement("div");
+  linkContainer.classList.add("link-container");
+  
+  // Create initial OQT links
+  const [oqtLinkWhite, oqtLinkBlack] = createOQTLink(fenWhite, fenBlack);
+  
+  // Create buttons for the links
+  const oqtButtonWhite = document.createElement("button");
+  oqtButtonWhite.textContent = "Open analysis board (White)";
+  oqtButtonWhite.classList.add("oqt-link-btn");
+  oqtButtonWhite.addEventListener("click", () => {
+    window.open(oqtLinkWhite.href, "_blank");
+  });
+  
+  const oqtButtonBlack = document.createElement("button");
+  oqtButtonBlack.textContent = "Open analysis board  (Black)";
+  oqtButtonBlack.classList.add("oqt-link-btn");
+  oqtButtonBlack.addEventListener("click", () => {
+    window.open(oqtLinkBlack.href, "_blank");
+  });
+  
+  linkContainer.append(oqtButtonWhite, oqtButtonBlack);
+  
+  // Function to update OQT links when prediction is made
+  function updateOQTLinks(whitefen: string, blackfen: string) {
+    const [newOqtLinkWhite, newOqtLinkBlack] = createOQTLink(whitefen, blackfen);
+    
+    oqtButtonWhite.addEventListener("click", () => {
+      window.open(newOqtLinkWhite.href, "_blank");
+    });
+    
+    oqtButtonBlack.addEventListener("click", () => {
+      window.open(newOqtLinkBlack.href, "_blank");
+    });
+  }
+
   const canvasWrapper = document.createElement("div");
   canvasWrapper.classList.add("detection-card__canvas-wrapper");
 
@@ -147,7 +190,7 @@ export function createSidebarCard(
     previewCanvas.classList.add("hidden");
   });
 
-  cardWrapper.append(buttonsPanel, canvasWrapper, fenContainer);
+  cardWrapper.append(buttonsPanel, canvasWrapper, fenContainer, linkContainer);
 
   return {
     card: cardWrapper,

@@ -1,16 +1,16 @@
-export function createLichessLink(fen: string, reversedFen: string) {
-  const linkLichess = document.createElement("a");
-  const linkLichessReversed = document.createElement("a");
+export function createOQTLink(fen: string, reversedFen: string) {
+  const oqtLink = document.createElement("a");
+  const oqtLinkReversed = document.createElement("a");
 
-  linkLichess.href = `https://onlinequicktool.com/chess-next-move/?fen=${fen}`;
-  linkLichess.textContent = `Onlinequicktool white perspective: ${fen}`;
-  linkLichess.target = "_blank";
+  oqtLink.href = `https://onlinequicktool.com/chess-next-move/?fen=${fen}`;
+  oqtLink.textContent = `Onlinequicktool white perspective: ${fen}`;
+  oqtLink.target = "_blank";
 
-  linkLichessReversed.href = `https://onlinequicktool.com/chess-next-move/?fen=${reversedFen}`;
-  linkLichessReversed.textContent = `Onlinequicktool black perspective: ${reversedFen}`;
-  linkLichessReversed.target = "_blank";
+  oqtLinkReversed.href = `https://onlinequicktool.com/chess-next-move/?fen=${reversedFen}`;
+  oqtLinkReversed.textContent = `Onlinequicktool black perspective: ${reversedFen}`;
+  oqtLinkReversed.target = "_blank";
 
-  return [linkLichess, linkLichessReversed] as const;
+  return [oqtLink, oqtLinkReversed] as const;
 }
 
 export function createCopyButtons(fen: string, reversedFen: string) {
