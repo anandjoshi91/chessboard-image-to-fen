@@ -2,12 +2,12 @@ export function createLichessLink(fen: string, reversedFen: string) {
   const linkLichess = document.createElement("a");
   const linkLichessReversed = document.createElement("a");
 
-  linkLichess.href = `https://lichess.org/editor/${fen}`;
-  linkLichess.textContent = `Lichess white perspective: ${fen}`;
+  linkLichess.href = `https://onlinequicktool.com/chess-next-move/?fen=${fen}`;
+  linkLichess.textContent = `Onlinequicktool white perspective: ${fen}`;
   linkLichess.target = "_blank";
 
-  linkLichessReversed.href = `https://lichess.org/editor/${reversedFen}`;
-  linkLichessReversed.textContent = `Lichess black perspective: ${reversedFen}`;
+  linkLichessReversed.href = `https://onlinequicktool.com/chess-next-move/?fen=${reversedFen}`;
+  linkLichessReversed.textContent = `Onlinequicktool black perspective: ${reversedFen}`;
   linkLichessReversed.target = "_blank";
 
   return [linkLichess, linkLichessReversed] as const;
