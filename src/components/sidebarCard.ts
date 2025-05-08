@@ -4,7 +4,7 @@ import { ChessBoardCanvas } from "./previewCanvas";
 import { detectionCanvasList } from "../renderBoxes";
 import { Sidebar } from "./sidebar";
 import { normalizeFenString } from "../utils";
-import { createOQTLink, createCopyButtons } from "./linkHelper";
+import { createOQTLink } from "../linksHelper";
 
 const outlineSVG = document.querySelector(".outline-svg_svg")!;
 
