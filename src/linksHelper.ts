@@ -1,12 +1,15 @@
 export function createOQTLink(fen: string, reversedFen: string) {
+  const encodedFen = encodeURIComponent(fen);
+  const encodedReversedFen = encodeURIComponent(reversedFen);
+
   const oqtLink = document.createElement("a");
   const oqtLinkReversed = document.createElement("a");
 
-  oqtLink.href = `https://onlinequicktool.com/chess-next-move/?fen=${fen}`;
+  oqtLink.href = `https://onlinequicktool.com/chess-next-move/?fen=${encodedFen}`;
   oqtLink.textContent = `Onlinequicktool white perspective: ${fen}`;
   oqtLink.target = "_blank";
 
-  oqtLinkReversed.href = `https://onlinequicktool.com/chess-next-move/?fen=${reversedFen}`;
+  oqtLinkReversed.href = `https://onlinequicktool.com/chess-next-move/?fen=${encodedReversedFen}`;
   oqtLinkReversed.textContent = `Onlinequicktool black perspective: ${reversedFen}`;
   oqtLinkReversed.target = "_blank";
 

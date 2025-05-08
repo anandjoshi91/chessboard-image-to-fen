@@ -123,22 +123,24 @@ export function createSidebarCard(
   const linkContainer = document.createElement("div");
   linkContainer.classList.add("link-container");
   
-  // Create initial OQT links
-  const [oqtLinkWhite, oqtLinkBlack] = createOQTLink(fenWhite, fenBlack);
+  // Initialize link variables in wider scope for later reference
+  const [initialOqtLinkWhite, initialOqtLinkBlack] = createOQTLink(fenWhite, fenBlack);
   
   // Create buttons for the links
   const oqtButtonWhite = document.createElement("button");
-  oqtButtonWhite.textContent = "Open analysis board (White)";
+  oqtButtonWhite.textContent = "Open in OQT (White)";
   oqtButtonWhite.classList.add("oqt-link-btn");
+  oqtButtonWhite.dataset.href = initialOqtLinkWhite.href;
   oqtButtonWhite.addEventListener("click", () => {
-    window.open(oqtLinkWhite.href, "_blank");
+    window.open(oqtButtonWhite.dataset.href, "_blank");
   });
   
   const oqtButtonBlack = document.createElement("button");
-  oqtButtonBlack.textContent = "Open analysis board  (Black)";
+  oqtButtonBlack.textContent = "Open in OQT (Black)";
   oqtButtonBlack.classList.add("oqt-link-btn");
+  oqtButtonBlack.dataset.href = initialOqtLinkBlack.href;
   oqtButtonBlack.addEventListener("click", () => {
-    window.open(oqtLinkBlack.href, "_blank");
+    window.open(oqtButtonBlack.dataset.href, "_blank");
   });
   
   linkContainer.append(oqtButtonWhite, oqtButtonBlack);
@@ -147,13 +149,9 @@ export function createSidebarCard(
   function updateOQTLinks(whitefen: string, blackfen: string) {
     const [newOqtLinkWhite, newOqtLinkBlack] = createOQTLink(whitefen, blackfen);
     
-    oqtButtonWhite.addEventListener("click", () => {
-      window.open(newOqtLinkWhite.href, "_blank");
-    });
-    
-    oqtButtonBlack.addEventListener("click", () => {
-      window.open(newOqtLinkBlack.href, "_blank");
-    });
+    // Update the data-href attributes with the new URLs
+    oqtButtonWhite.dataset.href = newOqtLinkWhite.href;
+    oqtButtonBlack.dataset.href = newOqtLinkBlack.href;
   }
 
   const canvasWrapper = document.createElement("div");
