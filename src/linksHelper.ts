@@ -1,6 +1,6 @@
 export function createOQTLink(fen: string, reversedFen: string) {
-  const encodedFen = encodeURIComponent(fen);
-  const encodedReversedFen = encodeURIComponent(reversedFen);
+  const encodedFen = encodeURIComponent(`${fen} w KQkq - 0 1`);
+  const encodedReversedFen = encodeURIComponent(`${reversedFen} b KQkq - 0 1`);
 
   const oqtLink = document.createElement("a");
   const oqtLinkReversed = document.createElement("a");
